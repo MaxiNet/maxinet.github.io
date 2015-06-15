@@ -1,0 +1,267 @@
+<html>
+<head>
+<title>MaxiNet: Distributed Network Emulation</title>
+
+        <!-- Google Fonts embed code -->
+        <script type="text/javascript">
+            (function() {
+                var link_element = document.createElement("link"),
+                    s = document.getElementsByTagName("script")[0];
+                if (window.location.protocol !== "http:" && window.location.protocol !== "https:") {
+                    link_element.href = "http:";
+                }
+                link_element.href += "//fonts.googleapis.com/css?family=Lato:100italic,100,300italic,300,400";
+                link_element.rel = "stylesheet";
+                link_element.type = "text/css";
+                s.parentNode.insertBefore(link_element, s);
+            })();
+        </script>
+
+<style>
+body {
+	 font-family: "Lato";
+	 font-style: normal;
+	 font-weight: 300;
+}
+
+.menuspacer {
+	position: relative; width:1px; height:30px; background:#ffffff; float: left;
+}
+
+.menuitem {
+	position: relative; width: 130px; font-size:16; font-weight: 300; float:left; color: #ffffff;
+}
+
+h1 {
+	font-size:40; letter-spacing: 4px;
+	 font-family: "Lato";
+	 font-weight: 100;
+	 font-style: normal;
+	color: #009FE3;
+	padding-top:40px;
+}
+
+.contentOdd {
+	background: #F3FAFF;
+	padding: 10px;
+	margin-bottom: 50px;
+	text-align: justify;
+}
+
+.contentEven {
+	background: #E6F5FE;
+	padding: 10px;
+	margin-bottom: 50px;
+	text-align: justify;
+}
+
+</style>
+</head>
+<body style="margin-left:0px; margin-top:0px">
+<center>
+<div style='position:fixed; height:22px; width:100%; background:#000000; border-bottom: solid 5px #ffffff'>
+</div>
+<div style="vertical-align: middle">
+	<div style="position:fixed; width:100%">
+	<div style='position:relative; margin-left: auto; margin-right: auto; text-align:center; height:22px; width:1020px; letter-spacing: 0px'>
+		<div style="position: relative; width: 100px; font-size:16; float:left; color: #ffffff"><font color="#009FE3">M</font>axi<font color="#009FE3">N</font>et</div>
+		<a href="#overview"><div class="menuitem">Overview</div></a>
+		<div class="menuspacer"></div>
+		<a href="#performance"><div class="menuitem">Performance</div></a>
+		<div class="menuspacer"></div>
+		<a href="#quickstart"><div class="menuitem">Quickstart</div></a>
+		<div class="menuspacer"></div>
+		<a href="#features"><div class="menuitem">Features</div></a>
+		<div class="menuspacer"></div>
+		<a href="#installation"><div class="menuitem">Installation</div></a>
+		<div class="menuspacer"></div>
+		<a href="#download"><div class="menuitem">Download</div></a>
+		<div class="menuspacer"></div>
+		<a href="#contact"><div class="menuitem">Contact</div></a>
+	</div>
+	</div>
+
+	<div style="height:1000px; width:1000px" align="left">
+		<center><img src="maxinetLogo.png" width="800px" alt="MaxiNet Distributed Emulation of Software-Defined Networks"></center><br>
+
+		<h1 id="overview">Overview</h1>
+		<div class="contentOdd">
+			MaxiNet extends the famous Mininet emulation environment to span the emulation across several physical machines. This allows to emulate very large software-defined networks.
+			<br><br>
+			MaxiNet runs on a pool of multiple physical machines called Workers. Each of these Workers runs a Mininet emulation and only emulates a part of the whole network. Switches and hosts are interconnected using GRE tunnels across different Workers. MaxiNet provides a centralized API for controlling the emulation. This API is invoked at a specialized Worker called the Frontend. The Frontend partitions and distributes the virtual network onto the Workers and keeps a list of which node resides on which Worker. This way we can access all nodes through the Frontend.
+			<br><br>
+			The newest stable release of MaxiNet is Version 1.0.0, released June 2015.<br>
+			MaxiNet uses Mininet 2.2.1rc1 and has been tested to work with Debian 8.0 and Ubuntu 14.04. 
+		</div>
+		
+		<h1 id="performance">Performance</h1>
+		<div class="contentEven">
+			<img src="speedup.png" width="500px" align="right" style="margin-left: 10px; margin-bottom:10px">
+			MaxiNet gives you <b>more than linear speedup</b> for your experiments!<br><br>
+			MaxiNet scales nicely with increasing number of physical machines. To find out, we conducted the following experiments:
+			We both emulate a fat-tree and a topology consisting of various small independant islands. In the experiments, we use a traffic pattern that fully saturates
+			every single link. The figure plots the resource usage of the physical machines for different numbers of workers. The green line (s=n) depicts a hypothetical
+			linear scaling where the achieved speedup is equal to the number of physical resources. One can see that the speedups for actual experiments are
+			(depending on the emulated topology) more than linear. 
+			The fat-tree toplogy does not scale well because the root switch of the tree gets the bottleneck of the emulation. As MaxiNet does not emulate
+			single switches on multiple physical machines, the physical machine emulating the root switch becomes the bottleneck of the experiment.
+			
+		</div>
+
+		<h1 id="quickstart">Quickstart</h1>
+		<div class="contentOdd">
+			There are two ways to get started using MaxiNet: Using our <b>preconfigured Virtual Machine Images</b> or <b>installing from scratch</b>.<br>
+			For starters, we recommend to use our preconfigured Virtual Machine Images. When performance matters, MaxiNet should definitively be used on non-virtualized machines.
+			<br><br>
+			Download these two Virtual Machine images: <br>
+			<a href="http://homepages.uni-paderborn.de/wette/Maxinet-0.3.1-VMs.ova">[Maxinet-0.3.1-VMs]</a> MD5 (Maxinet-0.3.1-VMs.ova) = b6b31bbebb9ac7de6774f50503edb554<br>
+			<br>
+			<b>The username for both machines is maxinet with the password maxinet.</b>
+			<br><br>
+			The file Maxinet-0.3.1-VMs.ova contains two virtual machine images: worker1 and worker2.
+			<br />
+			You need a program like <a target="_blank" href="https://www.virtualbox.org/">Virtual Box</a> to run them on your computer.
+			<br /><br />
+			Start each virtual machine on a dedicated physical machine and make sure the virtual machines can reach each other.
+			For testing purposes both virtual machines can also run on the same physical machine.
+			<br />
+			The virtual machines are using the IP addresses 192.168.0.1 and 192.168.0.2 on the interface eth0. Make sure both machines can reach each other.
+			<br />
+			To start the emulation process, login into worker1 and cd to /home/maxinet/maxinet/Frontend/examples/
+			<br />
+			Specify the OpenFlow controller by editing the file ~/.MaxiNet.cfg. You have to change the line
+<pre style="background-color:#ffffff; padding:5px">
+controller = "192.168.0.1:6633" # default controller 
+</pre>
+			to point to the IP address of your OpenFlow controller. Make sure the controller is reachable from both worker1 and worker2.
+			<br />
+			You can also start a pox controller at worker1 by invoking the commands:
+<pre style="background-color:#ffffff; padding:5px">
+maxinet@worker1:~$ cd pox
+maxinet@worker1:~/pox$ screen -d -m -S PoxScr ./pox.py forwarding.l2_learning
+</pre>
+			<br />
+			Before any MaxiNet expepriment can be executed, you first need to start the MaxiNetFrontendServer and the MaxiNetWorkerServers.
+			To this end, on worker1, execute the following commands to start both the Frontend and a Worker:
+<pre style="background-color:#ffffff; padding:5px">
+maxinet@worker1:~$ screen -d -m -S MaxiNetFrontend MaxiNetFrontendServer
+maxinet@worker1:~$ screen -d -m -S MaxiNetWorker sudo MaxiNetWorker
+</pre>
+			and on worker2, execute the following to start a second Worker:
+<pre style="background-color:#ffffff; padding:5px">
+maxinet@worker2:~$ sudo screen -d -m -S MaxiNetWorker MaxiNetWorker
+</pre>
+
+
+			now you can start the simplePing example as user maxinet.
+<pre style="background-color:#ffffff; padding:5px">
+maxinet@worker1:~/maxinet/Frontend/examples$ python simplePing.py 
+</pre>
+			You can find even more examples under ~/maxinet/Frontend/examples.
+
+		</div>
+
+
+		<h1 id="features">Features</h1>
+		<div class="contentEven">
+		<a target="_blank" href="cli.png"><img src="cli.png" width="300px" alt="MaxiNet Monitoring" align="right"></a>
+		The build-in <b>interactive command line interface</b> (CLI) helps you debugging your experiments. With the CLI, you can execute arbitrary commands at any emulated host.
+		You can even execute commands directly at the workers. In addition, the CLI lets you check which hosts and switches are emulated at which physical machine.
+		The CLI supports X forwarding, which means that you can execute grafical user interfaces on both the workers and
+		the emulated hosts.
+
+		<br clear="all"><br>
+
+		<a href="plot2workersWeb.png" target="_blank"><img src="plot2workersWeb.png" width="300px" alt="MaxiNet Monitoring" align="right"></a>
+		MaxiNets <b>Monitoring</b> functionality automatically logs and evaluates the physical resource usage over the course of your experiments. To this end, 
+		MaxiNet monitors CPU utilization, memory consumption, and network usage of all physical workers. After an experiment has been finished, this data can be plotted and
+		evaluated to make sure none of the phsical resources was overwhelmed by the experiment.
+
+		<br clear="all"><br>
+		<!--MaxiNet supports <b>manual, automatic, and hybrid partitioning</b> of the virtual topology. In manual mode, you can use MaxiNets API to specify which switches and hosts are emulated
+		at which worker. In automatic mode, this task is done by the graph partitioning library METIS. In hybrid mode, you can use METIS to partition a part of the network and
+		assign the rest manually to the workers. It is even possible to add new hosts and switches to an already running experiment.-->
+
+		</div>
+
+
+
+		<h1 id="installation">Installation</h1>
+		<div class="contentOdd">
+
+			For an automatic installation of MaxiNet use the installer.sh script.
+			<br /><br />
+			<b>You can download it here:</b> 
+			<a href="https://github.com/MaxiNet/MaxiNet/raw/v1.0/installer.sh">[installer.sh]</a> <br />
+			<br />
+			Just copy the script to each physical machine you want to use MaxiNet on and execute the script as the user you later on want to run MaxiNet with.
+			Note that the username has to be the same across all installations.<br><br>
+			If you are running Ubuntu, you now have to setup your user to use <b>sudo</b> without password. This can simply be done by adding the following line to your
+			/etc/sudoers file.<br>
+<pre style="background-color:#ffffff; padding:5px">
+yourusername ALL=(ALL) NOPASSWD: ALL
+</pre>
+			Replace yourusername with your user name.
+			<br><br>
+			The last thing left to do is copy the .MaxiNet.cfg to your users home directory and modify it accordingly.
+<pre style="background-color:#ffffff; padding:5px">
+cp ~/MaxiNet/share/MaxiNet-cfg-sample ~/.MaxiNet.cfg
+</pre>
+			Edit the config file according to the hints given at <a target="_blank" href="https://github.com/MaxiNet/MaxiNet/wiki/Configuration-File">our wiki</a>.
+			<br>
+			Note that under Ubuntu, you need to set 
+<pre style="background-color:#ffffff; padding:5px">
+[all]
+...
+sshuser = yourusername
+usesudo = True
+</pre>
+
+			
+		</div>
+
+
+		<h1 id="download">Download</h1>
+		<div class="contentEven">
+			Go to <a href="https://github.com/MaxiNet/MaxiNet" target="_blank">https://github.com/MaxiNet/MaxiNet</a> to get the current development version of MaxiNet.<br>
+			<br>
+			<a href="http://homepages.uni-paderborn.de/wette/maxinet_doc/index.html" target="_blank">You find all documentation and an API reference here</a>
+			<br><br>
+			If you need more information, visit our <a href="https://github.com/MaxiNet/MaxiNet/wiki" target="_blank">Wiki</a>.
+		</div>
+		
+
+		<h1 id="contact">Contact</h1>
+		<div class="contentOdd">
+			If you want to cite this work, please use this reference:<br>
+			P. Wette, M. Dr&auml;xler, A. Schwabe, F. Wallaschek, M. Hassan Zahraee, H. Karl: <i>MaxiNet: Distributed Emulation of Software-Defined Networks</i>. In IFIP Networking 2014 Conference (Networking 2014). [<a href="http://www.cs.uni-paderborn.de/uploads/tx_sibibtex/maxinet_networking14.pdf">PDF</a>]
+
+			<br><br>
+			
+			If you want to contact us feel free to join our mailing list maxinet@lists.upb.de<br />
+			You can subscribe to the list at <a href="https://lists.uni-paderborn.de/mailman/listinfo/maxinet">https://lists.uni-paderborn.de/mailman/listinfo/maxinet</a>
+			<br /><br />
+
+			MaxiNet is actively developed by:
+			<ul>
+				<li>Philip Wette</li>
+				<li>Felix Wallaschek</li>
+				<li>Arne Schwabe</li>
+			</ul>
+
+
+			This work was partially supported by the German Research Foundation (DFG) within the Collaborative Research Centre "On-The-Fly Computing" (SFB 901).<br />
+			The research leading to these results has received funding from the European Union's Seventh Framework Programme (FP7/2007-2013) under grant agreement no 318115.
+
+
+		</div>
+
+
+
+	</div>
+
+</div>
+</center>
+
+</body>
+</html>
