@@ -129,7 +129,7 @@ h1 {
 			<br />
 			To start the emulation process, login into worker1 and cd to /home/maxinet/maxinet/Frontend/examples/
 			<br />
-			Specify the OpenFlow controller by editing the file ~/.MaxiNet.cfg. You have to change the line
+			Specify the OpenFlow controller by editing the file /etc/MaxiNet.cfg. You have to change the line
 <pre style="background-color:#ffffff; padding:5px">
 controller = "192.168.0.1:6633" # default controller 
 </pre>
@@ -203,10 +203,11 @@ yourusername ALL=(ALL) NOPASSWD: ALL
 </pre>
 			Replace yourusername with your user name.
 			<br><br>
-			The last thing left to do is copy the .MaxiNet.cfg to your users home directory and modify it accordingly.
+			The last thing left to do is copy the MaxiNet.cfg to /etc/ and modify it accordingly.
 <pre style="background-color:#ffffff; padding:5px">
-cp ~/MaxiNet/share/MaxiNet-cfg-sample ~/.MaxiNet.cfg
+sudo cp ~/MaxiNet/share/MaxiNet-cfg-sample /etc/MaxiNet.cfg
 </pre>
+			If you do not wish to have the MaxiNet.cfg in /etc/ you can also save it to ~/.MaxiNet.cfg<br><br>
 			Edit the config file according to the hints given at <a target="_blank" href="https://github.com/MaxiNet/MaxiNet/wiki/Configuration-File">our wiki</a>.
 			<br>
 			Note that under Ubuntu, you need to set 
@@ -225,7 +226,7 @@ usesudo = True
 		<div class="contentEven">
 			Go to <a href="https://github.com/MaxiNet/MaxiNet" target="_blank">https://github.com/MaxiNet/MaxiNet</a> to get the current development version of MaxiNet.<br>
 			<br>
-			<a href="http://homepages.uni-paderborn.de/wette/maxinet_doc/index.html" target="_blank">You find all documentation and an API reference here</a>
+			<a href="https://cdn.rawgit.com/MaxiNet/MaxiNet/v1.0/doc/maxinet.html" target="_blank">You find all documentation and an API reference here</a>
 			<br><br>
 			If you need more information, visit our <a href="https://github.com/MaxiNet/MaxiNet/wiki" target="_blank">Wiki</a>.
 		</div>
