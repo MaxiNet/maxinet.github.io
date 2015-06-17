@@ -114,7 +114,7 @@ h1 {
 			For starters, we recommend to use our preconfigured Virtual Machine Images. When performance matters, MaxiNet should definitively be used on non-virtualized machines.
 			<br><br>
 			Download these two Virtual Machine images: <br>
-			<a href="http://homepages.uni-paderborn.de/wette/Maxinet-0.3.1-VMs.ova">[Maxinet-0.3.1-VMs]</a> MD5 (Maxinet-0.3.1-VMs.ova) = b6b31bbebb9ac7de6774f50503edb554<br>
+			<a href="http://homepages.uni-paderborn.de/wette/MaxiNet-1.0-rc1.ova">[MaxiNet-1.0-rc1.ova]</a> MD5 (MaxiNet-1.0-rc1.ova) = 6dfc4546bd48bc727861b0ad51ecf2ca<br>
 			<br>
 			<b>The username for both machines is maxinet with the password maxinet.</b>
 			<br><br>
@@ -152,8 +152,18 @@ maxinet@worker1:~$ screen -d -m -S MaxiNetWorker sudo MaxiNetWorker
 maxinet@worker2:~$ sudo screen -d -m -S MaxiNetWorker MaxiNetWorker
 </pre>
 
-
-			now you can start the simplePing example as user maxinet.
+			Until now, we have a running Frontend server with two connected Workers. You can check the status of the MaxiNet cluster with the command MaxiNetStatus
+<pre style="background-color:#ffffff; padding:5px">
+maxinet@worker2:~$ MaxiNetStatus
+MaxiNet Frontend server running at 192.168.0.1
+Number of connected workers: 2
+--------------------------------
+worker1		free
+worker2		free
+</pre>
+			As you can see, the cluster has two workers which are currently not allocated to an experiment.
+			<br><br>
+			You can now start the simplePing example as user maxinet.
 <pre style="background-color:#ffffff; padding:5px">
 maxinet@worker1:~/maxinet/Frontend/examples$ python simplePing.py 
 </pre>
@@ -263,6 +273,25 @@ usesudo = True
 
 </div>
 </center>
+
+<div id="eXTReMe"><a href="http://extremetracking.com/open?login=pwette">
+<img src="http://t1.extreme-dm.com/i.gif" style="border: 0;" height="0" width="0" id="EXim" alt="eXTReMe Tracker" /></a>
+<script type="text/javascript"><!--
+EXref="";top.document.referrer?EXref=top.document.referrer:EXref=document.referrer;//-->
+</script><script type="text/javascript"><!--
+var EXlogin='pwette' // Login
+var EXvsrv='s9' // VServer
+EXs=screen;EXw=EXs.width;navigator.appName!="Netscape"?
+EXb=EXs.colorDepth:EXb=EXs.pixelDepth;EXsrc="src";
+navigator.javaEnabled()==1?EXjv="y":EXjv="n";
+EXd=document;EXw?"":EXw="na";EXb?"":EXb="na";
+EXref?EXref=EXref:EXref=EXd.referrer;
+EXd.write("<img "+EXsrc+"=http://e0.extreme-dm.com",
+"/"+EXvsrv+".g?login="+EXlogin+"&amp;",
+"jv="+EXjv+"&amp;j=y&amp;srw="+EXw+"&amp;srb="+EXb+"&amp;",
+"l="+escape(EXref)+" height=1 width=1>");//-->
+</script><noscript><div id="neXTReMe"><img height="1" width="1" alt="" src="http://e0.extreme-dm.com/s9.g?login=pwette&amp;j=n&amp;jv=n" />
+</div></noscript></div></div><div class="clearer" style="height:0em;"></div>
 
 </body>
 </html>
